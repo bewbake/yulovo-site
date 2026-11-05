@@ -1,0 +1,191 @@
+/* Yulovo legal site: plain, readable, light and dark. No external resources. */
+:root {
+  color-scheme: light dark;
+  --bg: #faf7f2;
+  --ink: #1d1916;
+  --ink2: #4a423c;
+  --muted: #7a7068;
+  --line: #e6ded3;
+  --accent: #b5532f;
+  --card: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1d1916;
+    --ink: #f3ede6;
+    --ink2: #cfc6bc;
+    --muted: #9a9087;
+    --line: #3a332d;
+    --accent: #e0805c;
+    --card: #26211d;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink2);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.top,
+main,
+footer {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+main {
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 28px 0 4px;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 32px 0 8px;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 24px 0 6px;
+}
+
+p,
+ul,
+ol {
+  margin: 8px 0;
+}
+
+ul,
+ol {
+  padding-left: 1.4em;
+}
+
+li + li {
+  margin-top: 4px;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+.updated,
+.lead-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 0;
+}
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.toc details {
+  margin-top: 20px;
+  padding: 10px 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.toc summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.toc ol {
+  margin-bottom: 4px;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.links li + li {
+  margin-top: 0;
+}
+
+.links a {
+  display: block;
+  padding: 14px 16px;
+  margin-top: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.links a span {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+.lang-block + .lang-block {
+  margin-top: 48px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+footer a {
+  color: var(--muted);
+}
