@@ -15,7 +15,7 @@
   </header>
   <main>
     <h1>Privacy policy</h1>
-    <p class="updated">Effective 2 November 2026</p>
+    <p class="updated">Effective 6 November 2026</p>
     <nav class="toc" aria-label="Contents">
       <details>
         <summary>Contents</summary>
@@ -62,7 +62,7 @@
     </section>
     <section id="your-account">
       <h2>Your account</h2>
-      <p>You can sign in with Apple or with Google. We receive an account identifier from Apple or Google and your email address. If you choose to hide your email with Apple, we receive a private relay address from Apple instead. Apple may also pass your name the first time you sign in. It becomes your display name, which you can change at any time.</p>
+      <p>You can sign in with Apple or with Google. We receive an account identifier from Apple or Google and your email address. If you choose to hide your email with Apple, we receive a private relay address from Apple instead. Apple may also pass your name the first time you sign in. Google passes your name and profile picture. They become your display name and profile picture, which friends see; you can change both at any time. Until you choose your own picture, friends’ phones load your Google picture from Google’s servers, which then see their IP address.</p>
       <p>Your account is kept by our backend provider, Supabase (Supabase Auth). We never see or store a password.</p>
     </section>
     <section id="sync-and-storage">
@@ -75,7 +75,7 @@
       <p>You add friends with an invite code or link. Anyone who has your code or link can see your display name before adding you. You can make a new code at any time; the old one then stops working.</p>
       <p>Your friends see your display name and profile picture, and every memory of yours that is not set to “Only me”: its title, photos, place name and exact pin, dates, the friends you tagged, and the hearts and comments on it with the names and pictures of the people who left them.</p>
       <p>Friends never see your stories, the people and tags you type into a memory, or memories set to “Only me”.</p>
-      <p>Your trail (where you have been, the uncovered fog) is not shared unless you turn on “Show friends where I have been” in Friends. Friends then see the uncovered areas, rounded to about 100 m. This is off for everyone until they turn it on, including accounts made before this version.</p>
+      <p>Your trail (where you have been, the uncovered fog) is not shared unless you turn on “Share where I’ve been” in Settings → Privacy. Friends then see the uncovered areas, rounded to about 100 m. This is off for everyone until they turn it on, including accounts made before this version.</p>
       <p>Friends can heart and comment on your memories, tag you in theirs and add photos to memories they tagged you in. A memory you are tagged in appears on your map. Your hearts, comments and the photos you add can be seen, with your name and picture, by everyone who can see that memory, including the owner’s other friends.</p>
     </section>
     <section id="blocking-and-reports">
@@ -92,6 +92,7 @@
     <section id="camera-and-photos">
       <h2>Camera and photos</h2>
       <p>Photos for memories are taken with the camera inside the app. Each photo is saved again as a new JPEG, which removes all of its EXIF metadata, including GPS. The memory’s location is kept as a separate field instead.</p>
+      <p>With Yulovo Plus you can also film short videos with sound. The microphone is used only while you hold the shutter to film. A video is stored and synced like a photo, as the file was recorded, and friends see it wherever they can see that memory.</p>
       <p>Your photo library opens only when you choose a profile picture or add photos to a friend’s memory. The app reads only the photos you pick, and saves those again in the same way.</p>
       <p>A share card is a newly drawn image with no location in it. It is saved to your Photos only when you ask.</p>
     </section>
@@ -119,12 +120,12 @@
     </section>
     <section id="how-long-we-keep-data">
       <h2>How long we keep data</h2>
-      <p>Memories, photos, trail and profile: for as long as your account exists, or until you delete them.</p>
+      <p>Memories, photos, videos, trail and profile: for as long as your account exists, or until you delete them.</p>
       <p>A memory you delete: removed from your phone at once. On the next sync its content is erased on the server and its photos are removed from storage. An empty record stays, so your other devices know it was deleted.</p>
       <p>Comments: until you or the memory’s owner delete them. A deleted comment is hidden at once, and its record is erased when the account is deleted.</p>
       <p>Entries in your Activity list: while your account exists. Entries about things you can no longer see are not shown.</p>
       <p>Push tokens: until you sign out, the token stops working, someone else signs in on that phone, or you delete your account.</p>
-      <p>Your Plus status: while your account exists; it goes with the account.</p>
+      <p>Your Plus status on our server: while your account exists; it goes with the account. Apple and RevenueCat keep their own records of the purchase under their own policies.</p>
       <p>Reports: as long as needed to handle them and to deal with repeated abuse. A report stays after either account is deleted, but is then no longer linked to that account.</p>
       <p>Our providers keep short-lived technical logs and backups, which expire after a short period.</p>
     </section>
@@ -143,7 +144,7 @@
     </section>
     <section id="data-outside-your-country">
       <h2>Data outside your country</h2>
-      <p>To run the app, data is handled in Singapore (Supabase), the USA (Expo, Apple, Google), Germany (komoot Photon) and wherever OpenFreeMap’s tile servers are. We use only these providers and only for the purposes above. By using these features, you agree to this transfer.</p>
+      <p>To run the app, data is handled in Singapore (Supabase), the USA (Expo, Apple, Google, RevenueCat), Germany (komoot Photon) and wherever OpenFreeMap’s tile servers are. We use only these providers and only for the purposes above. By using these features, you agree to this transfer.</p>
     </section>
     <section id="security">
       <h2>Security</h2>
