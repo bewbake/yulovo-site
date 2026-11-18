@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Yulovo invite</title>
+  <meta name="description" content="A friend invites you to Yulovo.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .invite { text-align: center; padding-top: 48px; padding-bottom: 48px; }
+    .invite h1 { margin: 0 0 28px; }
+    .code {
+      display: inline-block; margin: 0 0 12px; padding: 14px 22px; border: 1px solid var(--line);
+      border-radius: 14px; background: var(--card); color: var(--ink);
+      font: 600 30px/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.12em;
+      user-select: all; -webkit-user-select: all;
+    }
+    .actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 24px; }
+    .btn {
+      display: block; width: 100%; max-width: 320px; padding: 15px 20px; border: 0; border-radius: 14px;
+      font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.2; text-decoration: none; cursor: pointer;
+    }
+    .primary { background: var(--accent); color: #fff; }
+    .secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html">Yulovo</a>
+  </header>
+  <main class="invite">
+    <h1 id="title">Add me on Yulovo</h1>
+    <div class="code" id="code"></div>
+    <div class="actions">
+      <a class="btn primary" id="open" href="#">Open in Yulovo</a>
+      <button class="btn secondary" id="copy" type="button">Copy code</button>
+      <a class="btn secondary" id="store" href="https://apps.apple.com/app/id6830149790">Get Yulovo</a>
+    </div>
+  </main>
+  <script>
+    (function () {
+      var texts = {
+        en: ['Add me on Yulovo', 'Open in Yulovo', 'Copy code', 'Copied', 'Get Yulovo'],
+        ru: ['Добавь меня в Yulovo', 'Открыть в Yulovo', 'Скопировать код', 'Скопировано', 'Скачать Yulovo'],
+        vi: ['Thêm mình trên Yulovo', 'Mở trong Yulovo', 'Sao chép mã', 'Đã sao chép', 'Tải Yulovo'],
+        de: ['Füg mich bei Yulovo hinzu', 'In Yulovo öffnen', 'Code kopieren', 'Kopiert', 'Yulovo laden'],
+        zh: ['在 Yulovo 上加我', '在 Yulovo 中打开', '复制邀请码', '已复制', '下载 Yulovo'],
+      };
+      var lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      var t = texts[lang] || texts.en;
+      document.documentElement.lang = texts[lang] ? lang : 'en';
+
+      var params = new URLSearchParams(location.search);
+      var code = (params.get('c') || location.hash.slice(1) || '').replace(/[^a-z0-9]/gi, '').toUpperCase();
+      var app = 'lifeatlas://invite/' + code;
+
+      document.title = 'Yulovo';
+      document.getElementById('title').textContent = t[0];
+      document.getElementById('code').textContent = code;
+      var open = document.getElementById('open');
+      open.textContent = t[1];
+      open.href = app;
+      var copy = document.getElementById('copy');
+      copy.textContent = t[2];
+      document.getElementById('store').textContent = t[4];
+
+      copy.addEventListener('click', function () {
+        var done = function () { copy.textContent = t[3]; setTimeout(function () { copy.textContent = t[2]; }, 1500); };
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () {});
+        else {
+          var range = document.createRange();
+          range.selectNodeContents(document.getElementById('code'));
+          var sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+          if (document.execCommand('copy')) done();
+        }
+      });
+
+      // No automatic jump to the app: without it installed Safari shows an "invalid address" alert.
+      if (!code) { open.style.display = 'none'; copy.style.display = 'none'; }
+    })();
+  </script>
+</body>
+</html>
