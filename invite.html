@@ -2,41 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <title>Yulovo invite</title>
-  <meta name="description" content="A friend invites you to Yulovo.">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="style.css">
+  <title>Yulovo</title>
+  <meta name="description" content="Add me on Yulovo to see my map.">
+  <!-- The card a messenger shows under the link. -->
+  <meta property="og:site_name" content="Yulovo">
+  <meta property="og:title" content="Yulovo">
+  <meta property="og:description" content="Add me on Yulovo to see my map.">
+  <meta property="og:image" content="https://bewbake.github.io/yulovo-site/icon.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#1D1916" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F7F1E8" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
   <style>
-    .invite { text-align: center; padding-top: 48px; padding-bottom: 48px; }
-    .invite h1 { margin: 0 0 28px; }
+    /* The app's brand palettes: Paper (light) and Ember (dark); Lora for what is said, Source Sans 3 for what is operated. */
+    @font-face { font-family: 'Lora'; font-weight: 600; font-display: swap; src: url('fonts/Lora_600SemiBold.ttf') format('truetype'); }
+    @font-face { font-family: 'Source Sans 3'; font-weight: 400; font-display: swap; src: url('fonts/SourceSans3_400Regular.ttf') format('truetype'); }
+    @font-face { font-family: 'Source Sans 3'; font-weight: 600; font-display: swap; src: url('fonts/SourceSans3_600SemiBold.ttf') format('truetype'); }
+
+    :root {
+      color-scheme: light dark;
+      --page: #EFE7DC;
+      --paper: #F7F1E8;
+      --surface: #FFFCF7;
+      --ink: #2B2420;
+      --ink2: #51463D;
+      --line: #E3D8C9;
+      --accent: #AA5234;
+      --primary: linear-gradient(180deg, #B97158 0%, #AA5234 50%, #96482E 100%);
+      --primary-ink: #FFFFFF;
+      --glow: rgba(170, 82, 52, 0.28);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #121010;
+        --paper: #1D1916;
+        --surface: #27221D;
+        --ink: #F2E9DC;
+        --ink2: #D2C5B4;
+        --line: #3A332B;
+        --accent: #E0805C;
+        --primary: linear-gradient(180deg, #F4A57C 0%, #E0805C 50%, #C4603F 100%);
+        --primary-ink: #1D1916;
+        --glow: rgba(224, 128, 92, 0.35);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 17px/25px 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(32px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+    }
+    main { width: 100%; max-width: 360px; text-align: center; }
+    .icon {
+      display: block;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 24px;
+      border-radius: 22px;
+      box-shadow: 0 8px 24px var(--glow);
+    }
+    h1 {
+      margin: 0 0 28px;
+      font: 600 32px/43px 'Lora', Georgia, serif;
+      color: var(--ink);
+    }
     .code {
-      display: inline-block; margin: 0 0 12px; padding: 14px 22px; border: 1px solid var(--line);
-      border-radius: 14px; background: var(--card); color: var(--ink);
-      font: 600 30px/1.2 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.12em;
-      user-select: all; -webkit-user-select: all;
+      margin: 0 0 28px;
+      padding: 18px 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      font: 600 32px/40px 'Source Sans 3', -apple-system, sans-serif;
+      letter-spacing: 0.16em;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      user-select: all;
+      -webkit-user-select: all;
     }
-    .actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 24px; }
+    .actions { display: flex; flex-direction: column; gap: 12px; }
     .btn {
-      display: block; width: 100%; max-width: 320px; padding: 15px 20px; border: 0; border-radius: 14px;
-      font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.2; text-decoration: none; cursor: pointer;
+      display: block;
+      width: 100%;
+      min-height: 56px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      font: 600 18px/24px 'Source Sans 3', -apple-system, sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 120ms ease, opacity 120ms ease;
     }
-    .primary { background: var(--accent); color: #fff; }
-    .secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .btn:active { transform: scale(0.97); opacity: 0.85; }
+    .primary {
+      border: 0;
+      background: var(--primary);
+      color: var(--primary-ink);
+      box-shadow: 0 6px 20px var(--glow);
+    }
+    .ghost {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+    }
+    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:active { transform: none; } }
   </style>
 </head>
 <body>
-  <header class="top">
-    <a class="brand" href="index.html">Yulovo</a>
-  </header>
-  <main class="invite">
+  <main>
+    <img class="icon" src="icon.png" alt="Yulovo">
     <h1 id="title">Add me on Yulovo</h1>
     <div class="code" id="code"></div>
     <div class="actions">
       <a class="btn primary" id="open" href="#">Open in Yulovo</a>
-      <button class="btn secondary" id="copy" type="button">Copy code</button>
-      <a class="btn secondary" id="store" href="https://apps.apple.com/app/id6830149790">Get Yulovo</a>
+      <button class="btn ghost" id="copy" type="button">Copy code</button>
+      <a class="btn ghost" id="store" href="https://apps.apple.com/app/id6830149790">Get Yulovo</a>
     </div>
   </main>
   <script>
@@ -54,14 +149,13 @@
 
       var params = new URLSearchParams(location.search);
       var code = (params.get('c') || location.hash.slice(1) || '').replace(/[^a-z0-9]/gi, '').toUpperCase();
-      var app = 'lifeatlas://invite/' + code;
 
-      document.title = 'Yulovo';
       document.getElementById('title').textContent = t[0];
-      document.getElementById('code').textContent = code;
+      var box = document.getElementById('code');
+      box.textContent = code;
       var open = document.getElementById('open');
       open.textContent = t[1];
-      open.href = app;
+      open.href = 'lifeatlas://invite/' + code;
       var copy = document.getElementById('copy');
       copy.textContent = t[2];
       document.getElementById('store').textContent = t[4];
@@ -71,14 +165,14 @@
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () {});
         else {
           var range = document.createRange();
-          range.selectNodeContents(document.getElementById('code'));
+          range.selectNodeContents(box);
           var sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
           if (document.execCommand('copy')) done();
         }
       });
 
       // No automatic jump to the app: without it installed Safari shows an "invalid address" alert.
-      if (!code) { open.style.display = 'none'; copy.style.display = 'none'; }
+      if (!code) { box.style.display = 'none'; open.style.display = 'none'; copy.style.display = 'none'; }
     })();
   </script>
 </body>
