@@ -31,26 +31,42 @@
       --page: #EFE7DC;
       --paper: #F7F1E8;
       --surface: #FFFCF7;
+      --surface2: #F1E9DE;
       --ink: #2B2420;
       --ink2: #51463D;
+      --muted: #6E6052;
       --line: #E3D8C9;
       --accent: #AA5234;
-      --primary: linear-gradient(180deg, #B97158 0%, #AA5234 50%, #96482E 100%);
+      --sage: #566F44;
+      --primary: linear-gradient(180deg, #B97158 0%, #AA5234 55%, #96482E 100%);
       --primary-ink: #FFFFFF;
-      --glow: rgba(170, 82, 52, 0.28);
+      --glow: rgba(170, 82, 52, 0.30);
+      --bloom: rgba(214, 120, 80, 0.20);
+      --rim: rgba(255, 255, 255, 0.9);
+      --store: #000000;
+      --store-ink: #FFFFFF;
+      --store-line: #000000;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --page: #121010;
         --paper: #1D1916;
         --surface: #27221D;
+        --surface2: #302923;
         --ink: #F2E9DC;
         --ink2: #D2C5B4;
+        --muted: #A39582;
         --line: #3A332B;
         --accent: #E0805C;
-        --primary: linear-gradient(180deg, #F4A57C 0%, #E0805C 50%, #C4603F 100%);
+        --sage: #A3B78F;
+        --primary: linear-gradient(180deg, #F4A57C 0%, #E0805C 55%, #C4603F 100%);
         --primary-ink: #1D1916;
-        --glow: rgba(224, 128, 92, 0.35);
+        --glow: rgba(224, 128, 92, 0.38);
+        --bloom: rgba(224, 128, 92, 0.18);
+        --rim: rgba(242, 233, 220, 0.10);
+        --store: #000000;
+        --store-ink: #FFFFFF;
+        --store-line: #A6A6A6;
       }
     }
 
@@ -60,88 +76,179 @@
       margin: 0;
       min-height: 100vh;
       min-height: 100dvh;
-      background: var(--paper);
+      background:
+        radial-gradient(120% 60% at 50% 0%, var(--bloom), transparent 70%),
+        linear-gradient(180deg, var(--paper) 0%, var(--page) 100%);
+      background-attachment: fixed;
       color: var(--ink);
       font: 400 17px/25px 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: max(32px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+      padding: max(40px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
     }
     main { width: 100%; max-width: 360px; text-align: center; }
-    .icon {
-      display: block;
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 24px;
-      border-radius: 22px;
-      box-shadow: 0 8px 24px var(--glow);
+
+    /* The mark sits in a warm bloom, as on the launch screen. */
+    .mark { position: relative; width: 112px; height: 112px; margin: 0 auto 28px; }
+    .mark::before {
+      content: '';
+      position: absolute;
+      inset: -48px;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, var(--glow), transparent);
     }
+    .mark img {
+      position: relative;
+      display: block;
+      width: 112px;
+      height: 112px;
+      border-radius: 26px;
+      box-shadow: 0 1px 0 var(--rim) inset, 0 14px 32px rgba(0, 0, 0, 0.22);
+    }
+
     h1 {
-      margin: 0 0 28px;
+      margin: 0 0 32px;
       font: 600 32px/43px 'Lora', Georgia, serif;
       color: var(--ink);
+      text-wrap: balance;
     }
-    .code {
-      margin: 0 0 28px;
-      padding: 18px 16px;
+
+    /* The code, with its copy button inside the field. */
+    .field {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 0 0 16px;
+      padding: 8px 8px 8px 64px;
+      min-height: 76px;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 22px;
-      font: 600 32px/40px 'Source Sans 3', -apple-system, sans-serif;
-      letter-spacing: 0.16em;
+      box-shadow: 0 1px 0 var(--rim) inset, 0 6px 18px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .code {
+      flex: 1;
+      min-width: 0;
+      padding-left: 0.14em;
+      font: 600 28px/36px 'Source Sans 3', -apple-system, sans-serif;
+      letter-spacing: 0.14em;
       color: var(--ink);
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
       user-select: all;
       -webkit-user-select: all;
     }
-    .actions { display: flex; flex-direction: column; gap: 12px; }
-    .btn {
-      display: block;
-      width: 100%;
-      min-height: 56px;
-      padding: 16px 24px;
-      border-radius: 999px;
-      font: 600 18px/24px 'Source Sans 3', -apple-system, sans-serif;
-      text-decoration: none;
+    .copy {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border: 0;
+      border-radius: 16px;
+      background: var(--surface2);
+      color: var(--ink2);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: transform 120ms ease, opacity 120ms ease;
+      transition: transform 120ms ease, color 200ms ease;
     }
-    .btn:active { transform: scale(0.97); opacity: 0.85; }
-    .primary {
+    .copy:active { transform: scale(0.95); }
+    .copy svg { width: 24px; height: 24px; grid-area: 1 / 1; transition: opacity 200ms ease; }
+    .copy .done { opacity: 0; color: var(--sage); }
+    .copied .copy .idle { opacity: 0; }
+    .copied .copy .done { opacity: 1; }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 58px;
+      padding: 16px 24px;
       border: 0;
+      border-radius: 999px;
       background: var(--primary);
       color: var(--primary-ink);
-      box-shadow: 0 6px 20px var(--glow);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 8px 24px var(--glow);
+      font: 600 18px/24px 'Source Sans 3', -apple-system, sans-serif;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 120ms ease;
     }
-    .ghost {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink);
+    .btn:active { transform: scale(0.95); }
+
+    /* App Store button: black, Apple's mark from the system font where there is one. */
+    .store {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 9px 20px 9px 16px;
+      min-height: 56px;
+      border: 1px solid var(--store-line);
+      border-radius: 12px;
+      background: var(--store);
+      color: var(--store-ink);
+      text-decoration: none;
+      text-align: left;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 120ms ease;
     }
-    @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:active { transform: none; } }
+    .store:active { transform: scale(0.95); }
+    .store .apple { font: 400 32px/1 -apple-system, BlinkMacSystemFont, sans-serif; margin-top: -4px; }
+    .store .lines { display: flex; flex-direction: column; }
+    .store .small { font: 400 12px/14px -apple-system, BlinkMacSystemFont, 'Source Sans 3', sans-serif; letter-spacing: 0.01em; }
+    .store .big { font: 600 22px/26px -apple-system, BlinkMacSystemFont, 'Source Sans 3', sans-serif; letter-spacing: -0.01em; }
+
+    /* Things move into place once, a fade and a short rise; nothing is scaled up. */
+    .rise { opacity: 0; transform: translateY(12px); animation: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .rise:nth-child(2) { animation-delay: 60ms; }
+    .rise:nth-child(3) { animation-delay: 120ms; }
+    .rise:nth-child(4) { animation-delay: 180ms; }
+    .rise:nth-child(5) { animation-delay: 240ms; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .rise { opacity: 1; transform: none; animation: none; }
+      .btn, .copy, .store { transition: none; }
+      .btn:active, .copy:active, .store:active { transform: none; }
+    }
   </style>
 </head>
 <body>
   <main>
-    <img class="icon" src="icon.png" alt="Yulovo">
-    <h1 id="title">Add me on Yulovo</h1>
-    <div class="code" id="code"></div>
-    <div class="actions">
-      <a class="btn primary" id="open" href="#">Open in Yulovo</a>
-      <button class="btn ghost" id="copy" type="button">Copy code</button>
-      <a class="btn ghost" id="store" href="https://apps.apple.com/app/id6830149790">Get Yulovo</a>
+    <div class="mark rise"><img src="icon.png" alt="Yulovo"></div>
+    <h1 class="rise" id="title">Add me on Yulovo</h1>
+    <div class="field rise" id="field">
+      <span class="code" id="code"></span>
+      <button class="copy" id="copy" type="button" aria-label="Copy code">
+        <svg class="idle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="8.5" y="8.5" width="11" height="11" rx="2.6"></rect>
+          <path d="M15.5 8.5V6.6a2.1 2.1 0 0 0-2.1-2.1H6.6a2.1 2.1 0 0 0-2.1 2.1v6.8c0 1.16.94 2.1 2.1 2.1h1.9"></path>
+        </svg>
+        <svg class="done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5.5 12.5l4.2 4.2L18.5 7.8"></path>
+        </svg>
+      </button>
+    </div>
+    <a class="btn rise" id="open" href="#">Open in Yulovo</a>
+    <div class="rise">
+      <a class="store" id="store" href="https://apps.apple.com/app/id6830149790">
+        <span class="apple" id="apple" aria-hidden="true"></span>
+        <span class="lines"><span class="small" id="storeSmall">Download on the</span><span class="big">App Store</span></span>
+      </a>
     </div>
   </main>
   <script>
     (function () {
       var texts = {
-        en: ['Add me on Yulovo', 'Open in Yulovo', 'Copy code', 'Copied', 'Get Yulovo'],
-        ru: ['Добавь меня в Yulovo', 'Открыть в Yulovo', 'Скопировать код', 'Скопировано', 'Скачать Yulovo'],
-        vi: ['Thêm mình trên Yulovo', 'Mở trong Yulovo', 'Sao chép mã', 'Đã sao chép', 'Tải Yulovo'],
-        de: ['Füg mich bei Yulovo hinzu', 'In Yulovo öffnen', 'Code kopieren', 'Kopiert', 'Yulovo laden'],
-        zh: ['在 Yulovo 上加我', '在 Yulovo 中打开', '复制邀请码', '已复制', '下载 Yulovo'],
+        en: ['Add me on Yulovo', 'Open in Yulovo', 'Copy code', 'Download on the'],
+        ru: ['Добавь меня в Yulovo', 'Открыть в Yulovo', 'Скопировать код', 'Загрузите в'],
+        vi: ['Thêm mình trên Yulovo', 'Mở trong Yulovo', 'Sao chép mã', 'Tải về trên'],
+        de: ['Füg mich bei Yulovo hinzu', 'In Yulovo öffnen', 'Code kopieren', 'Laden im'],
+        zh: ['在 Yulovo 上加我', '在 Yulovo 中打开', '复制邀请码', '下载于'],
       };
       var lang = (navigator.language || 'en').slice(0, 2).toLowerCase();
       var t = texts[lang] || texts.en;
@@ -157,11 +264,20 @@
       open.textContent = t[1];
       open.href = 'lifeatlas://invite/' + code;
       var copy = document.getElementById('copy');
-      copy.textContent = t[2];
-      document.getElementById('store').textContent = t[4];
+      copy.setAttribute('aria-label', t[2]);
+      document.getElementById('storeSmall').textContent = t[3];
+      // Apple's mark is a character only Apple's own fonts draw; elsewhere the button goes without it.
+      if (/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) document.getElementById('apple').textContent = '';
+      else document.getElementById('apple').style.display = 'none';
 
-      copy.addEventListener('click', function () {
-        var done = function () { copy.textContent = t[3]; setTimeout(function () { copy.textContent = t[2]; }, 1500); };
+      var field = document.getElementById('field');
+      var timer;
+      field.addEventListener('click', function () {
+        var done = function () {
+          field.classList.add('copied');
+          clearTimeout(timer);
+          timer = setTimeout(function () { field.classList.remove('copied'); }, 1600);
+        };
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () {});
         else {
           var range = document.createRange();
@@ -172,7 +288,7 @@
       });
 
       // No automatic jump to the app: without it installed Safari shows an "invalid address" alert.
-      if (!code) { box.style.display = 'none'; open.style.display = 'none'; copy.style.display = 'none'; }
+      if (!code) { field.style.display = 'none'; open.style.display = 'none'; }
     })();
   </script>
 </body>
