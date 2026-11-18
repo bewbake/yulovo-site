@@ -180,7 +180,18 @@
     }
     .btn:active { transform: scale(0.95); }
 
-    /* App Store button: black, Apple's mark from the system font where there is one. */
+    .badge {
+      display: inline-block;
+      margin-top: 28px;
+      line-height: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 120ms ease;
+    }
+    .badge:active { transform: scale(0.95); }
+    .badge img { height: 56px; width: auto; }
+    .store[hidden], .badge[hidden] { display: none; }
+
+    /* Only if Apple's badge does not load: black, Apple's mark from the system font where there is one. */
     .store {
       display: inline-flex;
       align-items: center;
@@ -235,7 +246,9 @@
     </div>
     <a class="btn rise" id="open" href="#">Open in Yulovo</a>
     <div class="rise">
-      <a class="store" id="store" href="https://apps.apple.com/app/id6830149790">
+      <!-- Apple's own badge, served by Apple (Apple Marketing Tools), in the reader's language. -->
+      <a class="badge" id="badgeLink" href="https://apps.apple.com/app/id6830149790"><img id="badge" alt="Download on the App Store"></a>
+      <a class="store" id="store" hidden href="https://apps.apple.com/app/id6830149790">
         <span class="apple" id="apple" aria-hidden="true"></span>
         <span class="lines"><span class="small" id="storeSmall">Download on the</span><span class="big">App Store</span></span>
       </a>
@@ -266,6 +279,13 @@
       var copy = document.getElementById('copy');
       copy.setAttribute('aria-label', t[2]);
       document.getElementById('storeSmall').textContent = t[3];
+      var locales = { en: 'en-us', ru: 'ru-ru', vi: 'vi-vn', de: 'de-de', zh: 'zh-cn' };
+      var badge = document.getElementById('badge');
+      badge.onerror = function () {
+        document.getElementById('badgeLink').hidden = true;
+        document.getElementById('store').hidden = false;
+      };
+      badge.src = 'https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/black/' + (locales[lang] || 'en-us') + '?size=250x83';
       // Apple's mark is a character only Apple's own fonts draw; elsewhere the button goes without it.
       if (/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) document.getElementById('apple').textContent = '';
       else document.getElementById('apple').style.display = 'none';
