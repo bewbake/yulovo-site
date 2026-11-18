@@ -288,7 +288,12 @@
       });
 
       // No automatic jump to the app: without it installed Safari shows an "invalid address" alert.
-      if (!code) { field.style.display = 'none'; open.style.display = 'none'; }
+      // A link without a code is just the app's page: no invite to show.
+      if (!code) {
+        document.getElementById('title').textContent = 'Yulovo';
+        field.style.display = 'none';
+        open.style.display = 'none';
+      }
     })();
   </script>
 </body>
